@@ -1,5 +1,8 @@
 package br.com.meli.api.rest.entity;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Anuncio {
 
 	
@@ -7,6 +10,7 @@ public class Anuncio {
 	private String codigo ;
 	private String descricao;
 	
+
 	
 	public Anuncio(long id, String codigo, String descricao) {
 		super();
@@ -14,6 +18,11 @@ public class Anuncio {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
+	
+	public Anuncio() {
+		
+	}
+	
 	public long getId() {
 		return id;
 	}

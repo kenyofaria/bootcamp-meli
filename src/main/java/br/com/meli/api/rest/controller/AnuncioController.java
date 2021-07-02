@@ -1,8 +1,9 @@
-package br.com.meli.api.rest;
+package br.com.meli.api.rest.controller;
 
 import java.net.URI;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +16,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.meli.api.dao.AnuncioDAO;
+import br.com.meli.api.rest.dao.AnuncioDAO;
 import br.com.meli.api.rest.dto.AnuncioDTO;
 import br.com.meli.api.rest.entity.Anuncio;
+import br.com.meli.api.rest.service.AnuncioService;
 
 @RestController
 @RequestMapping("/anuncios")
 public class AnuncioController {
 
+	@Autowired
+	private AnuncioService anuncioService;
+	
 	private AnuncioDAO dao = new AnuncioDAO();
 	
 	@RequestMapping("/ed1/{p}")
@@ -85,9 +90,16 @@ public class AnuncioController {
 	
 	@GetMapping
 	public List<AnuncioDTO> obterAnuncios() {
-		List<Anuncio> anuncios = dao.getList();
+		List<Anuncio> anuncios = anuncioService.listar();
 		List<AnuncioDTO> dtos = AnuncioDTO.converte(anuncios);
 		return dtos;
 	}
 	
+	
+	@PostMapping
+	@RequestMapping("/cadastra")
+	public void cadastraAnuncio(@RequestBody AnuncioDTO dto) {
+		Anuncio anuncio = AnuncioDTO.converte(dto);
+		anuncioService.cadastra(anuncio);
+	}
 }

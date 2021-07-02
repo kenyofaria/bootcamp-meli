@@ -1,4 +1,4 @@
-package br.com.meli.api.dao;
+package br.com.meli.api.rest.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,10 +31,8 @@ public class AnuncioDAO {
 	
 	public Anuncio get(long id) {
 		Optional<Anuncio> anuncioOpt = anuncios.stream().filter(a -> a.getId() == id).findFirst();
-		if(anuncioOpt.isPresent()) {
-			return anuncioOpt.get();
-		}
-		return null;
+		Anuncio a = anuncioOpt.orElse(anuncioOpt.get());
+		return a;
 	}
 	
 }
