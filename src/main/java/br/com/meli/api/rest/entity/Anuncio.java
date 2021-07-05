@@ -1,8 +1,6 @@
 package br.com.meli.api.rest.entity;
 
-import javax.persistence.Entity;
 
-@Entity
 public class Anuncio {
 
 	

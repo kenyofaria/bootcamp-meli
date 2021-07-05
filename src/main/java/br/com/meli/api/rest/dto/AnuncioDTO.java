@@ -3,12 +3,22 @@ package br.com.meli.api.rest.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+
 import br.com.meli.api.rest.dao.AnuncioDAO;
 import br.com.meli.api.rest.entity.Anuncio;
 
 public class AnuncioDTO {
 
+	@NotNull
+	@NotEmpty
 	private String codigo;
+	@NotNull
+	@NotEmpty
+	@Size(min = 3)
 	private String descricao;
 	
 	public AnuncioDTO(String codigo, String descricao) {

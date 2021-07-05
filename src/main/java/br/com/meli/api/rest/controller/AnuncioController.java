@@ -3,6 +3,8 @@ package br.com.meli.api.rest.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -98,8 +100,15 @@ public class AnuncioController {
 	
 	@PostMapping
 	@RequestMapping("/cadastra")
-	public void cadastraAnuncio(@RequestBody AnuncioDTO dto) {
+	public void cadastraAnuncio(@RequestBody @Valid AnuncioDTO dto) {
 		Anuncio anuncio = AnuncioDTO.converte(dto);
 		anuncioService.cadastra(anuncio);
+	}	
+	
+	@GetMapping
+	@RequestMapping("/exception")
+	public ResponseEntity<AnuncioDTO> obterAnunciosException(){
+		anuncioService.notifica();
+		return ResponseEntity.ok(new AnuncioDTO("", ""));
 	}
 }

@@ -3,22 +3,13 @@ package br.com.meli.api.rest.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
-@Entity
 public class Pedido {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private LocalDate dataPedido;
 	private BigDecimal valorTotal;
 	private int quantidade;
-	@ManyToOne
 	private Anuncio anuncio;
 	
 	
