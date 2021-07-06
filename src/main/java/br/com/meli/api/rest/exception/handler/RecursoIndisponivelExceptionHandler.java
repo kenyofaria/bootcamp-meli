@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,9 +18,11 @@ import br.com.meli.api.rest.exception.RecursoIndisponivelException;
 
 @ControllerAdvice
 public class RecursoIndisponivelExceptionHandler {
+
+	@Autowired
+	private MessageSource messageSource;
 	
 	@ExceptionHandler(RecursoIndisponivelException.class)
-	//@ResponseStatus(value = HttpStatus.CREATED)
 	public ResponseEntity<ExceptionDTO> defaultHandler(RecursoIndisponivelException e){
 		return ResponseEntity.badRequest().body(new ExceptionDTO(e.getMessage()));
 	}
@@ -35,8 +38,8 @@ public class RecursoIndisponivelExceptionHandler {
     private List<ExceptionDTO> processFieldErrors(List<FieldError> fieldErrors) {
     	List<ExceptionDTO> listaDtos = new ArrayList<>();
         for (FieldError fieldError: fieldErrors) {
-        	listaDtos.add(new ExceptionDTO(fieldError.getField(), fieldError.getDefaultMessage()));
-            
+        	String mensagemDeErro = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+        	listaDtos.add(new ExceptionDTO(fieldError.getField(), mensagemDeErro));
         }
         return listaDtos;
     }

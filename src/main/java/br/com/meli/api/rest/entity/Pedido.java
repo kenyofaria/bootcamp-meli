@@ -41,5 +41,8 @@ public class Pedido {
 	public Anuncio getAnuncio() {
 		return anuncio;
 	}
+	public long getId() {
+		return id;
+	}
 	
 }
